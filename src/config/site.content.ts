@@ -2,80 +2,80 @@ import type { TaskKey } from '@/lib/site-config'
 
 export const siteContent = {
   navbar: {
-    tagline: 'Independent reading platform',
+    tagline: 'Visual ranking and creator feed',
   },
   footer: {
-    tagline: 'Stories, resources, and discoverable posts',
+    tagline: 'Trending images, profiles, and scored discoveries',
   },
   hero: {
-    badge: 'Latest stories and visuals',
-    title: ['A thoughtful home for', 'stories, visuals, and discovery.'],
+    badge: 'Ranked visual feed',
+    title: ['Score what matters.', 'Follow images before they go mainstream.'],
     description:
-      'Explore fresh articles, image-led posts, and discoverable content across the platform through a calmer and clearer browsing experience.',
+      'Score Miners is a Digg-inspired image and profile platform built for tracking standout visuals, surfacing creators, and moving fast through what the community is saving, sharing, and revisiting.',
     primaryCta: {
-      label: 'Read latest stories',
-      href: '/articles',
-    },
-    secondaryCta: {
-      label: 'Explore visuals',
+      label: 'Open top images',
       href: '/images',
     },
-    searchPlaceholder: 'Search stories, visuals, listings, and more',
-    focusLabel: 'Focus',
-    featureCardBadge: 'latest cover rotation',
-    featureCardTitle: 'Latest posts shape the visual identity of the homepage.',
+    secondaryCta: {
+      label: 'Browse profiles',
+      href: '/profile',
+    },
+    searchPlaceholder: 'Search images, creators, ranked posts, and profile drops',
+    focusLabel: 'Now surfacing',
+    featureCardBadge: 'scoreboard pulse',
+    featureCardTitle: 'Fresh visual posts drive the feed and reshape the homepage in real time.',
     featureCardDescription:
-      'Recent images and stories stay at the center of the experience without changing any core platform behavior.',
+      'The newest high-signal images and creator uploads stay prominent, while profile-led discovery remains one click away.',
   },
   home: {
     metadata: {
-      title: 'Stories, visuals, and discoverable content',
+      title: 'Score Miners | Trending images and creator profiles',
       description:
-        'Explore articles, images, listings, and curated posts through a cleaner reading-first experience.',
-      openGraphTitle: 'Stories, visuals, and discoverable content',
+        'Track image-led discoveries, profile drops, and visual trends through a faster, Digg-inspired feed built for repeat browsing.',
+      openGraphTitle: 'Score Miners | Trending images and creator profiles',
       openGraphDescription:
-        'Discover articles, visual posts, and connected content through a calmer reading-first experience.',
-      keywords: ['story platform', 'article site', 'visual content', 'content discovery'],
+        'Discover high-signal visuals, creator pages, and fast-moving trends through a sharper ranking-focused feed.',
+      keywords: ['image discovery', 'creator profiles', 'visual trends', 'ranked feed', 'digg style'],
     },
-    introBadge: 'About the platform',
-    introTitle: 'Built for reading, browsing, and connecting different kinds of content.',
+    introBadge: 'How it works',
+    introTitle: 'A sharper front page for visual discoveries and creator signals.',
     introParagraphs: [
-      'This site brings together article-style reading, visual browsing, and structured discovery so visitors can move naturally between different content types.',
-      'Instead of separating stories, visuals, and supporting resources into disconnected surfaces, the platform keeps them connected in one place with consistent navigation and easier exploration.',
-      'Whether someone starts with a story, an image-led post, a listing, or a resource page, they can keep discovering related content without friction.',
+      'Score Miners is designed around visual momentum: strong images first, profile context second, and a faster feed rhythm that helps visitors keep moving without losing the thread.',
+      'Instead of presenting every content type the same way, the homepage behaves more like a ranked front page where image-led posts compete for attention and profile surfaces act as trust layers.',
+      'That structure makes the site feel more active, more editorially filtered, and more useful for spotting what is worth opening next.',
     ],
-    sideBadge: 'At a glance',
+    sideBadge: 'Why it feels different',
     sidePoints: [
-      'Reading-first homepage with stronger emphasis on stories and imagery.',
-      'Connected sections for articles, visuals, listings, and supporting resources.',
-      'Cleaner browsing rhythm designed to make exploration feel easier.',
-      'Lightweight interactions that keep the experience fast and readable.',
+      'Feed-first homepage built around image momentum and rankable visual stories.',
+      'Profile surfaces that make creators and sources easier to trust at a glance.',
+      'A stronger editorial rhythm inspired by Digg-style front-page scanning.',
+      'Designed to make repeat visits feel useful, not repetitive.',
     ],
     primaryLink: {
-      label: 'Browse articles',
-      href: '/articles',
+      label: 'View image feed',
+      href: '/images',
     },
     secondaryLink: {
-      label: 'See visuals',
-      href: '/images',
+      label: 'Meet creators',
+      href: '/profile',
     },
   },
   cta: {
-    badge: 'Start exploring',
-    title: 'Explore articles, visuals, and resources through one connected experience.',
+    badge: 'Join the feed',
+    title: 'Surface stronger visuals, spotlight better creators, and keep the signal high.',
     description:
-      'Move between articles, image-led posts, listings, and resources through one clearer and more connected visual system.',
+      'Move from ranked images to creator profiles without switching mental modes. Score Miners keeps visual discovery fast, sharp, and repeatable.',
     primaryCta: {
-      label: 'Get Started Free',
+      label: 'Create account',
       href: '/register',
     },
     secondaryCta: {
-      label: 'Contact Sales',
+      label: 'Contact team',
       href: '/contact',
     },
   },
-  taskSectionHeading: 'Latest {label}',
-  taskSectionDescriptionSuffix: 'Browse the newest posts in this section.',
+  taskSectionHeading: 'Top {label} right now',
+  taskSectionDescriptionSuffix: 'Browse the newest high-signal posts in this section.',
 } as const
 
 export const taskPageMetadata: Record<Exclude<TaskKey, 'comment' | 'org' | 'social'>, { title: string; description: string }> = {
