@@ -526,11 +526,8 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
                 </li>
               ) : null}
               <li>
-                <Link
-                  href={`/search?q=${encodeURIComponent(category)}`}
-                  className="text-primary underline-offset-4 hover:underline"
-                >
-                  Search more in {category}
+                <Link href="/images" className="text-primary underline-offset-4 hover:underline">
+                  Open image gallery
                 </Link>
               </li>
             </ul>

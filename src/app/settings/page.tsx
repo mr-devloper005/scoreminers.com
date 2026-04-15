@@ -6,10 +6,6 @@ import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import {
   User,
-  Bell,
-  Shield,
-  Palette,
-  Globe,
   LogOut,
   ChevronRight,
   Camera,
@@ -34,13 +30,7 @@ import { useAuth } from "@/lib/auth-context"
 import { useToast } from "@/components/ui/use-toast"
 import { loadFromStorage, saveToStorage, storageKeys } from "@/lib/local-storage"
 
-const settingsSections = [
-  { id: "profile", label: "Profile", icon: User },
-  { id: "notifications", label: "Notifications", icon: Bell },
-  { id: "privacy", label: "Privacy & Security", icon: Shield },
-  { id: "appearance", label: "Appearance", icon: Palette },
-  { id: "language", label: "Language & Region", icon: Globe },
-]
+const settingsSections = [{ id: "profile", label: "Profile", icon: User }]
 
 export default function SettingsPage() {
   const router = useRouter()
