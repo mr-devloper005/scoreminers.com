@@ -2,11 +2,10 @@ import Link from 'next/link'
 import { Bookmark, Building2, FileText, Image as ImageIcon, Sparkles } from 'lucide-react'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
-import { getFactoryState } from '@/design/factory/get-factory-state'
-import { getProductKind } from '@/design/factory/get-product-kind'
+import type { ProductKind } from '@/design/factory/get-product-kind'
 import { REGISTER_PAGE_OVERRIDE_ENABLED, RegisterPageOverride } from '@/overrides/register-page'
 
-function getRegisterConfig(kind: ReturnType<typeof getProductKind>) {
+function getRegisterConfig(kind: ProductKind) {
   if (kind === 'directory') {
     return {
       shell: 'bg-[#f8fbff] text-slate-950',
@@ -33,11 +32,11 @@ function getRegisterConfig(kind: ReturnType<typeof getProductKind>) {
   }
   if (kind === 'visual') {
     return {
-      shell: 'bg-[#07101f] text-white',
-      panel: 'border border-white/10 bg-white/6',
-      side: 'border border-white/10 bg-white/5',
-      muted: 'text-slate-300',
-      action: 'bg-[#8df0c8] text-[#07111f] hover:bg-[#77dfb8]',
+      shell: 'bg-background text-foreground',
+      panel: 'border border-border bg-card',
+      side: 'border border-border bg-muted/50',
+      muted: 'text-muted-foreground',
+      action: 'bg-primary text-primary-foreground hover:bg-primary/90',
       icon: ImageIcon,
       title: 'Set up your creator profile',
       body: 'Launch a visual-first account with gallery publishing, identity surfaces, and profile-led discovery.',
@@ -60,9 +59,7 @@ export default function RegisterPage() {
     return <RegisterPageOverride />
   }
 
-  const { recipe } = getFactoryState()
-  const productKind = getProductKind(recipe)
-  const config = getRegisterConfig(productKind)
+  const config = getRegisterConfig('visual')
   const Icon = config.icon
 
   return (
@@ -76,7 +73,7 @@ export default function RegisterPage() {
             <p className={`mt-5 text-sm leading-8 ${config.muted}`}>{config.body}</p>
             <div className="mt-8 grid gap-4">
               {['Different onboarding per product family', 'No repeated one-size-fits-all shell', 'Profile, publishing, and discovery aligned'].map((item) => (
-                <div key={item} className="rounded-[1.5rem] border border-current/10 px-4 py-4 text-sm">{item}</div>
+                <div key={item} className="rounded-[1.5rem] border border-border bg-background/80 px-4 py-4 text-sm text-foreground">{item}</div>
               ))}
             </div>
           </div>
@@ -84,10 +81,10 @@ export default function RegisterPage() {
           <div className={`rounded-[2rem] p-8 ${config.panel}`}>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Create account</p>
             <form className="mt-6 grid gap-4">
-              <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="Full name" />
-              <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="Email address" />
-              <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="Password" type="password" />
-              <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="What are you creating or publishing?" />
+              <input className="h-12 rounded-xl border border-border bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground" placeholder="Full name" />
+              <input className="h-12 rounded-xl border border-border bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground" placeholder="Email address" />
+              <input className="h-12 rounded-xl border border-border bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground" placeholder="Password" type="password" />
+              <input className="h-12 rounded-xl border border-border bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground" placeholder="What are you creating or publishing?" />
               <button type="submit" className={`inline-flex h-12 items-center justify-center rounded-full px-6 text-sm font-semibold ${config.action}`}>Create account</button>
             </form>
             <div className={`mt-6 flex items-center justify-between text-sm ${config.muted}`}>

@@ -79,7 +79,7 @@ export default async function ProfileDetailPage({ params }: { params: Promise<{ 
     post.summary ||
     "Profile details will appear here once available.";
   const descriptionHtml = formatRichHtml(description);
-  const suggestedArticles = await fetchTaskPosts("article", 6);
+  const suggestedImages = await fetchTaskPosts("image", 6);
   const baseUrl = SITE_CONFIG.baseUrl.replace(/\/$/, "");
   const breadcrumbData = {
     "@context": "https://schema.org",
@@ -146,20 +146,20 @@ export default async function ProfileDetailPage({ params }: { params: Promise<{ 
           </div>
         </section>
 
-        {suggestedArticles.length ? (
+        {suggestedImages.length ? (
           <section className="mt-12">
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-foreground">Suggested articles</h2>
-              <Link href="/articles" className="text-sm font-medium text-primary hover:underline">
+              <h2 className="text-xl font-semibold text-foreground">Suggested images</h2>
+              <Link href="/images" className="text-sm font-medium text-primary hover:underline">
                 View all
               </Link>
             </div>
             <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {suggestedArticles.slice(0, 3).map((article) => (
+              {suggestedImages.slice(0, 3).map((img) => (
                 <TaskPostCard
-                  key={article.id}
-                  post={article}
-                  href={buildPostUrl("article", article.slug)}
+                  key={img.id}
+                  post={img}
+                  href={buildPostUrl("image", img.slug)}
                   compact
                 />
               ))}
@@ -167,13 +167,13 @@ export default async function ProfileDetailPage({ params }: { params: Promise<{ 
             <nav className="mt-6 rounded-2xl border border-border bg-card/60 p-4">
               <p className="text-sm font-semibold text-foreground">Related links</p>
               <ul className="mt-2 space-y-2 text-sm">
-                {suggestedArticles.slice(0, 3).map((article) => (
-                  <li key={`related-${article.id}`}>
+                {suggestedImages.slice(0, 3).map((img) => (
+                  <li key={`related-${img.id}`}>
                     <Link
-                      href={buildPostUrl("article", article.slug)}
+                      href={buildPostUrl("image", img.slug)}
                       className="text-primary underline-offset-4 hover:underline"
                     >
-                      {article.title}
+                      {img.title}
                     </Link>
                   </li>
                 ))}
