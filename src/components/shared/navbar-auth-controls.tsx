@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Bell, Bookmark, ChevronDown, LayoutGrid, LogOut, Plus, Settings, User, FileText, Building2, Tag, Image as ImageIcon } from 'lucide-react'
+import { Bell, ChevronDown, LayoutDashboard, LayoutGrid, LogOut, Plus, Settings, User, FileText, Building2, Tag, Image as ImageIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -15,6 +15,8 @@ import { Badge } from '@/components/ui/badge'
 import { useToast } from '@/components/ui/use-toast'
 import { useAuth } from '@/lib/auth-context'
 import { SITE_CONFIG, type TaskKey } from '@/lib/site-config'
+import { cn } from '@/lib/utils'
+import { filterTasksForUiSurface } from '@/components/shared/ui-surface-tasks'
 
 const taskIcons: Record<TaskKey, any> = {
   article: FileText,
@@ -29,9 +31,16 @@ const taskIcons: Record<TaskKey, any> = {
   comment: FileText,
 }
 
-export function NavbarAuthControls() {
+const shellTriggerClass: Record<'light' | 'dark', string> = {
+  light: 'text-[#5f4750] hover:bg-[rgba(110,26,55,0.06)] hover:text-[#8f1f3f]',
+  dark: 'text-slate-300 hover:bg-white/10 hover:text-white',
+}
+
+export function NavbarAuthControls({ shellTone = 'light' }: { shellTone?: 'light' | 'dark' }) {
   const { user, logout } = useAuth()
   const { toast } = useToast()
+  const triggerTone = shellTriggerClass[shellTone]
+  const avatarBorder = shellTone === 'dark' ? 'border-white/15' : 'border-[rgba(110,26,55,0.12)]'
 
   return (
     <>
@@ -44,7 +53,7 @@ export function NavbarAuthControls() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-56 border-[rgba(110,26,55,0.12)] bg-[rgba(255,250,244,0.98)]">
-          {SITE_CONFIG.tasks.filter((task) => task.enabled).map((task) => {
+          {filterTasksForUiSurface(SITE_CONFIG.tasks).map((task) => {
             const Icon = taskIcons[task.key] || LayoutGrid
             return (
               <DropdownMenuItem key={task.key} asChild>
@@ -60,7 +69,7 @@ export function NavbarAuthControls() {
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon" className="relative rounded-full text-[#5f4750] hover:bg-[rgba(110,26,55,0.06)] hover:text-[#8f1f3f]">
+          <Button variant="ghost" size="icon" className={cn('relative rounded-full', triggerTone)}>
             <Bell className="h-5 w-5" />
             <Badge className="absolute -right-1 -top-1 h-5 w-5 rounded-full bg-[#72BAA9] p-0 text-[10px] text-[#10211c]">
               3
@@ -104,8 +113,8 @@ export function NavbarAuthControls() {
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon" className="rounded-full text-[#5f4750] hover:bg-[rgba(110,26,55,0.06)] hover:text-[#8f1f3f]">
-            <Avatar className="h-9 w-9 border border-[rgba(110,26,55,0.12)]">
+          <Button variant="ghost" size="icon" className={cn('rounded-full', triggerTone)}>
+            <Avatar className={cn('h-9 w-9 border', avatarBorder)}>
               <AvatarImage src={user?.avatar} alt={user?.name} />
               <AvatarFallback>{user?.name?.charAt(0)}</AvatarFallback>
             </Avatar>
@@ -113,7 +122,7 @@ export function NavbarAuthControls() {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-56 border-[rgba(110,26,55,0.12)] bg-[rgba(255,250,244,0.98)]">
           <div className="flex items-center gap-3 p-3">
-            <Avatar className="h-10 w-10 border border-[rgba(110,26,55,0.12)]">
+            <Avatar className={cn('h-10 w-10 border', avatarBorder)}>
               <AvatarImage src={user?.avatar} alt={user?.name} />
               <AvatarFallback>{user?.name?.charAt(0)}</AvatarFallback>
             </Avatar>
@@ -124,9 +133,9 @@ export function NavbarAuthControls() {
           </div>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
-            <Link href="/dashboard/saved">
-              <Bookmark className="mr-2 h-4 w-4" />
-              Saved Items
+            <Link href="/dashboard">
+              <LayoutDashboard className="mr-2 h-4 w-4" />
+              Dashboard
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
