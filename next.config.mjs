@@ -17,9 +17,10 @@ const nextConfig = {
       { protocol: "http", hostname: "**" },
     ],
   },
-  turbopack: {
-    root: __dirname,
-  },
+  // turbopack disabled due to Windows compatibility issue with @tailwindcss/postcss
+  // turbopack: {
+  //   root: __dirname,
+  // },
   async headers() {
     return [
       {
