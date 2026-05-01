@@ -10,6 +10,11 @@ const lanes = [
   { icon: Mail, title: 'Media kits', body: 'Request creator decks, editorial support, or visual feature placement.' },
 ]
 
+const contactEmails = (process.env.NEXT_PUBLIC_CONTACT_EMAILS || '')
+  .split(',')
+  .map((value) => value.trim())
+  .filter(Boolean)
+
 export default function ContactPage() {
   if (CONTACT_PAGE_OVERRIDE_ENABLED) {
     return <ContactPageOverride />
@@ -35,6 +40,22 @@ export default function ContactPage() {
                 </div>
               ))}
             </div>
+            {contactEmails.length ? (
+              <div className="mt-8 rounded-[1.6rem] border border-border bg-card p-5 shadow-sm">
+                <h2 className="text-xl font-semibold text-foreground">Email the team</h2>
+                <div className="mt-4 flex flex-wrap gap-3">
+                  {contactEmails.map((email) => (
+                    <a
+                      key={email}
+                      href={`mailto:${email}`}
+                      className="inline-flex min-h-11 items-center justify-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+                    >
+                      {email}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </div>
 
           <div className="rounded-[2rem] border border-border bg-card p-7 shadow-sm">
