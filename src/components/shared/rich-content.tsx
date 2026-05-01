@@ -17,14 +17,42 @@ const sanitizeRichHtml = (html: string) =>
     .replace(/\son[a-z]+\s*=\s*(['"]).*?\1/gi, "")
     .replace(/\shref\s*=\s*(['"])javascript:.*?\1/gi, ' href="#"');
 
+const HTML_ENTITY_MAP: Record<string, string> = {
+  amp: "&",
+  lt: "<",
+  gt: ">",
+  quot: '"',
+  apos: "'",
+  nbsp: " ",
+};
+
+const decodeHtmlEntities = (value: string) =>
+  value.replace(/&(#x?[0-9a-f]+|[a-z]+);/gi, (match, entity: string) => {
+    const normalized = entity.toLowerCase();
+    if (normalized in HTML_ENTITY_MAP) return HTML_ENTITY_MAP[normalized];
+
+    if (normalized.startsWith("#x")) {
+      const parsed = Number.parseInt(normalized.slice(2), 16);
+      return Number.isNaN(parsed) ? match : String.fromCodePoint(parsed);
+    }
+
+    if (normalized.startsWith("#")) {
+      const parsed = Number.parseInt(normalized.slice(1), 10);
+      return Number.isNaN(parsed) ? match : String.fromCodePoint(parsed);
+    }
+
+    return match;
+  });
+
 export const formatRichHtml = (raw?: string | null, fallback = "Details coming soon.") => {
   const source = typeof raw === "string" ? raw.trim() : "";
   if (!source) return `<p>${escapeHtml(fallback)}</p>`;
-  if (/<[a-z][\s\S]*>/i.test(source)) {
-    return sanitizeRichHtml(source);
+  const decodedSource = decodeHtmlEntities(source);
+  if (/<[a-z][\s\S]*>/i.test(decodedSource)) {
+    return sanitizeRichHtml(decodedSource);
   }
 
-  return source
+  return decodedSource
     .split(/\n{2,}/)
     .map((paragraph) => `<p>${escapeHtml(paragraph.replace(/\n/g, " ").trim())}</p>`)
     .join("");
