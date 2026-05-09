@@ -4,17 +4,15 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from '@/components/ui/command'
 import { useToast } from '@/components/ui/use-toast'
-import { Plus, Settings, User, Image as ImageIcon } from 'lucide-react'
+import { Plus, Settings, Image as ImageIcon } from 'lucide-react'
 
 const quickLinks = [
   { label: 'Go to Images', href: '/images', icon: ImageIcon },
-  { label: 'Go to Profiles', href: '/profile', icon: User },
   { label: 'Go to Settings', href: '/settings', icon: Settings },
 ]
 
 const createActions = [
   { label: 'Create Image', href: '/create/image', icon: Plus },
-  { label: 'Create Profile', href: '/create/profile', icon: Plus },
 ]
 
 export function CommandPalette() {

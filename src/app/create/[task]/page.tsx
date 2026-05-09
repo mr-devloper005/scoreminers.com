@@ -197,19 +197,16 @@ export default function CreateTaskPage() {
     );
   }
 
-  if (taskKey !== "image" && taskKey !== "profile") {
+  if (taskKey !== "image") {
     return (
       <div className="min-h-screen bg-background">
         <NavbarShell />
         <main className="mx-auto max-w-lg px-4 py-16 text-center">
           <h1 className="text-2xl font-semibold text-foreground">Create flow</h1>
-          <p className="mt-2 text-muted-foreground">Only image sharing and profile creation are available from the UI.</p>
+          <p className="mt-2 text-muted-foreground">Only image sharing is available from the UI.</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
             <Button asChild>
               <Link href="/create/image">Create image</Link>
-            </Button>
-            <Button variant="outline" asChild>
-              <Link href="/create/profile">Create profile</Link>
             </Button>
           </div>
         </main>

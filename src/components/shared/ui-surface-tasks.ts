@@ -1,7 +1,7 @@
 import type { TaskConfig, TaskKey } from '@/lib/site-config'
 
 /** UI-only: surfaces shown in chrome (nav, footer, menus). Does not change routing or config. */
-const UI_SURFACE_KEYS = new Set<TaskKey>(['image', 'profile'])
+const UI_SURFACE_KEYS = new Set<TaskKey>(['image'])
 
 export function filterTasksForUiSurface(tasks: TaskConfig[]): TaskConfig[] {
   return tasks.filter((task) => task.enabled && UI_SURFACE_KEYS.has(task.key))
