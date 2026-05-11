@@ -17,8 +17,8 @@ export const siteContent = {
       href: '/images',
     },
     secondaryCta: {
-      label: 'Browse profiles',
-      href: '/profile',
+      label: 'Browse images',
+      href: '/images',
     },
     searchPlaceholder: 'Search images, creators, ranked posts, and profile drops',
     focusLabel: 'Now surfacing',
@@ -56,8 +56,8 @@ export const siteContent = {
       href: '/images',
     },
     secondaryLink: {
-      label: 'Meet creators',
-      href: '/profile',
+      label: 'Browse images',
+      href: '/images',
     },
   },
   cta: {
@@ -123,7 +123,7 @@ export const taskIntroCopy: Record<
     links: [
       { label: 'Read articles', href: '/articles' },
       { label: 'Explore classifieds', href: '/classifieds' },
-      { label: 'View profiles', href: '/profile' },
+      { label: 'Open images', href: '/images' },
     ],
   },
   article: {
@@ -149,7 +149,7 @@ export const taskIntroCopy: Record<
     links: [
       { label: 'Business listings', href: '/listings' },
       { label: 'Read articles', href: '/articles' },
-      { label: 'View profiles', href: '/profile' },
+      { label: 'Open images', href: '/images' },
     ],
   },
   image: {
@@ -201,7 +201,7 @@ export const taskIntroCopy: Record<
     links: [
       { label: 'Read articles', href: '/articles' },
       { label: 'See listings', href: '/listings' },
-      { label: 'Explore profiles', href: '/profile' },
+      { label: 'Open images', href: '/images' },
     ],
   },
   social: {

@@ -5,28 +5,49 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SITE_CONFIG } from "@/lib/site-config";
 
-const highlights = [
-  { label: "Creators onboarded", value: "12k+" },
-  { label: "Bookmarks shared", value: "180k" },
-  { label: "Listings published", value: "8.6k" },
+const values = [
+  {
+    title: "Curated by people",
+    description:
+      "We prioritize human judgment over algorithmic noise so meaningful resources are easier to trust and reuse.",
+  },
+  {
+    title: "Designed for focus",
+    description:
+      "Every surface is tuned for fast scanning, less clutter, and faster decisions when teams are under time pressure.",
+  },
+  {
+    title: "Built to share",
+    description:
+      "From public collections to structured listings, shared context stays connected instead of getting buried in chat history.",
+  },
 ];
 
-const values = [
-  { title: "Curated by people", description: "We believe trusted recommendations beat endless feeds." },
-  { title: "Designed for focus", description: "Clear, calm UI helps you find the next best resource fast." },
-  { title: "Built to share", description: "Collections make collaboration and knowledge flow effortless." },
+const principles = [
+  {
+    title: "Make quality visible",
+    description:
+      "Strong content should be discoverable in seconds. We design ranking and category views to surface signal quickly.",
+  },
+  {
+    title: "Keep context attached",
+    description:
+      "Articles, images, bookmarks, and listings should reinforce each other, not live in isolated silos.",
+  },
+  {
+    title: "Support repeat discovery",
+    description:
+      "The platform is optimized for return visits so teams can continue where they left off with less friction.",
+  },
 ];
 
 export default function AboutPage() {
   return (
     <PageShell
       title={`About ${SITE_CONFIG.name}`}
-      description={`${SITE_CONFIG.name} is a modern platform for creators, communities, and curated business discovery.`}
+      description={`${SITE_CONFIG.name} is a focused discovery platform for creators and teams who need trusted content, faster browsing, and better shared context.`}
       actions={
         <>
-          <Button variant="outline" asChild>
-            <Link href="/team">Meet the Team</Link>
-          </Button>
           <Button asChild>
             <Link href="/contact">Contact Us</Link>
           </Button>
@@ -38,20 +59,12 @@ export default function AboutPage() {
           <CardContent className="space-y-4 p-6">
             <Badge variant="secondary">Our Story</Badge>
             <h2 className="text-2xl font-semibold text-foreground">
-              A single home for knowledge, discovery, and community.
+              A practical home for discovery, publishing, and trusted recommendations.
             </h2>
             <p className="text-sm text-muted-foreground">
-              {SITE_CONFIG.name} brings together publishing, listings, and social bookmarking so teams can move faster
-              and keep their best resources close.
+              {SITE_CONFIG.name} brings together image-led posts, editorial content, listings, and curated resources
+              so communities can discover what matters, organize it clearly, and share it with confidence.
             </p>
-            <div className="grid gap-4 sm:grid-cols-3">
-              {highlights.map((item) => (
-                <div key={item.label} className="rounded-lg border border-border bg-secondary/40 p-4">
-                  <div className="text-2xl font-semibold text-foreground">{item.value}</div>
-                  <div className="text-xs text-muted-foreground">{item.label}</div>
-                </div>
-              ))}
-            </div>
           </CardContent>
         </Card>
         <div className="space-y-4">
@@ -65,7 +78,16 @@ export default function AboutPage() {
           ))}
         </div>
       </div>
-
+      <div className="mt-6 grid gap-4 md:grid-cols-3">
+        {principles.map((item) => (
+          <Card key={item.title} className="border-border bg-card">
+            <CardContent className="p-6">
+              <h3 className="text-base font-semibold text-foreground">{item.title}</h3>
+              <p className="mt-2 text-sm leading-7 text-muted-foreground">{item.description}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </PageShell>
   );
 }

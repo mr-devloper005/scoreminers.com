@@ -64,10 +64,9 @@ function getVisualTone() {
   }
 }
 
-function VisualHome({ primaryTask, imagePosts, profilePosts }: { primaryTask?: EnabledTask; imagePosts: SitePost[]; profilePosts: SitePost[] }) {
+function VisualHome({ primaryTask, imagePosts }: { primaryTask?: EnabledTask; imagePosts: SitePost[] }) {
   const tone = getVisualTone()
   const gallery = imagePosts.slice(0, 5)
-  const creators = profilePosts.slice(0, 3)
 
   return (
     <main className={tone.shell}>
@@ -79,16 +78,13 @@ function VisualHome({ primaryTask, imagePosts, profilePosts }: { primaryTask?: E
               Image sharing & profiles
             </span>
             <h1 className={`mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.06em] sm:text-6xl ${tone.title}`}>
-              Image-led discovery with creator profiles and a more gallery-like browsing rhythm.
+              A calmer, more immersive way to explore and discover.
             </h1>
             <p className={`mt-6 max-w-2xl text-base leading-8 ${tone.muted}`}>{SITE_CONFIG.description}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href={primaryTask?.route || '/images'} className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.action}`}>
                 Open gallery
                 <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link href="/profile" className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.actionAlt}`}>
-                Meet creators
               </Link>
             </div>
           </div>
@@ -107,24 +103,13 @@ function VisualHome({ primaryTask, imagePosts, profilePosts }: { primaryTask?: E
           </div>
         </div>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="mt-12">
           <div className={`rounded-[2rem] p-7 ${tone.panel}`}>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Visual notes</p>
             <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-foreground">Larger media surfaces, fewer boxes, stronger pacing.</h2>
             <p className={`mt-4 max-w-2xl text-sm leading-8 ${tone.muted}`}>
-              The homepage focuses on shared imagery and public profiles—gallery surfaces and identity-led discovery first.
+              The homepage focuses on shared imagery first, with gallery surfaces and identity-led discovery.
             </p>
-          </div>
-          <div className="grid gap-4 md:grid-cols-3">
-            {creators.map((post) => (
-              <Link key={post.id} href={`/profile/${post.slug}`} className={`rounded-[1.8rem] p-5 ${tone.soft}`}>
-                <div className="relative h-40 overflow-hidden rounded-[1.2rem]">
-                  <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover" />
-                </div>
-                <h3 className="mt-4 text-lg font-semibold text-foreground">{post.title}</h3>
-                <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{post.summary || 'Creator profile and visual identity surface.'}</p>
-              </Link>
-            ))}
           </div>
         </div>
       </section>
@@ -150,7 +135,7 @@ export default async function HomePage() {
 
   const primaryTask = surfaceTasks.find((task) => task.key === 'image') || surfaceTasks[0]
   const imagePosts = taskFeed.find(({ task }) => task.key === 'image')?.posts || []
-  const profilePosts = taskFeed.find(({ task }) => task.key === 'profile')?.posts || []
+  
 
   const schemaData = [
     {
@@ -178,8 +163,9 @@ export default async function HomePage() {
     <div className="min-h-screen bg-background text-foreground">
       <NavbarShell />
       <SchemaJsonLd data={schemaData} />
-      <VisualHome primaryTask={primaryTask} imagePosts={imagePosts} profilePosts={profilePosts} />
+      <VisualHome primaryTask={primaryTask} imagePosts={imagePosts} />
       <Footer />
     </div>
   )
 }
+
