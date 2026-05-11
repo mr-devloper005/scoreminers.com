@@ -27,11 +27,6 @@ function getFooterPlatformLinks() {
   }))
 }
 
-const footerLegal = [
-  { name: 'Privacy', href: '/privacy' },
-  { name: 'Terms', href: '/terms' },
-]
-
 export function Footer() {
   if (FOOTER_OVERRIDE_ENABLED) {
     return <FooterOverride />
@@ -85,12 +80,6 @@ export function Footer() {
                   <li key={item.name}><Link href={item.href} className="flex items-center gap-2 hover:text-slate-950">{item.icon ? <item.icon className="h-4 w-4" /> : null}{item.name}</Link></li>
                 ))}
               </ul>
-              <h3 className="mt-8 text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">Legal</h3>
-              <ul className="mt-5 space-y-3 text-sm text-slate-600">
-                {footerLegal.map((item) => (
-                  <li key={item.name}><Link href={item.href} className="hover:text-slate-950">{item.name}</Link></li>
-                ))}
-              </ul>
             </div>
           </div>
           <div className="mt-12 border-t border-slate-200 pt-6 text-center text-sm text-slate-500">&copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.</div>
@@ -120,12 +109,6 @@ export function Footer() {
             <ul className="mt-5 space-y-3 text-sm text-slate-600">
               {footerPlatformLinks.map((item: any) => (
                 <li key={item.name}><Link href={item.href} className="flex items-center gap-2 hover:text-slate-950">{item.icon ? <item.icon className="h-4 w-4" /> : null}{item.name}</Link></li>
-              ))}
-            </ul>
-            <h3 className="mt-8 text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">Legal</h3>
-            <ul className="mt-5 space-y-3 text-sm text-slate-600">
-              {footerLegal.map((item) => (
-                <li key={item.name}><Link href={item.href} className="hover:text-slate-950">{item.name}</Link></li>
               ))}
             </ul>
           </div>
