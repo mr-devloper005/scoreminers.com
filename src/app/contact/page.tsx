@@ -1,56 +1,105 @@
-import { Mail, MessageSquareText, ShieldCheck } from 'lucide-react';
+import { Image as ImageIcon, Mail, Sparkles } from 'lucide-react'
+import { NavbarShell } from '@/components/shared/navbar-shell'
+import { Footer } from '@/components/shared/footer'
+import { SITE_CONFIG } from '@/lib/site-config'
+import { CONTACT_PAGE_OVERRIDE_ENABLED, ContactPageOverride } from '@/overrides/contact-page'
+import { ContactLeadForm } from "@/components/shared/contact-lead-form";
 
-import { ContactLeadForm } from '@/components/shared/contact-lead-form';
-import { Footer } from '@/components/shared/footer';
-import { NavbarShell } from '@/components/shared/navbar-shell';
+const lanes = [
+  {
+    icon: ImageIcon,
+    title: 'Creator collaborations',
+    body: 'Plan gallery launches, creator spotlights, and campaigns that need structured visual storytelling.',
+  },
+  {
+    icon: Sparkles,
+    title: 'Licensing and commercial use',
+    body: 'Ask about usage rights, partnership terms, attribution requirements, and branded content workflows.',
+  },
+  {
+    icon: Mail,
+    title: 'Editorial and media requests',
+    body: 'Request media kits, feature opportunities, interviews, or publishing support across product sections.',
+  },
+]
 
-const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Score Miners';
+const responseGuidelines = [
+  'Include your objective, deadline, and target audience so we can route your request faster.',
+  'If reporting an issue, share page URL, device/browser, and steps to reproduce.',
+  'For partnership requests, include budget range and desired deliverables.',
+]
 
-const contactHighlights = [
-  { icon: Mail, title: 'Direct response', copy: 'Your message is saved securely and routed to the right team.' },
-  { icon: MessageSquareText, title: 'Clear details', copy: 'Share your requirement, question, or collaboration idea in one place.' },
-  { icon: ShieldCheck, title: 'Reliable follow-up', copy: 'We keep the request record so every conversation stays traceable.' },
-];
+const contactEmails = (process.env.NEXT_PUBLIC_CONTACT_EMAILS || '')
+  .split(',')
+  .map((value) => value.trim())
+  .filter(Boolean)
 
 export default function ContactPage() {
+  if (CONTACT_PAGE_OVERRIDE_ENABLED) {
+    return <ContactPageOverride />
+  }
+
   return (
-    <div className="min-h-screen bg-[#f7f1e8] text-stone-950">
+    <div className="min-h-screen bg-background text-foreground">
       <NavbarShell />
-      <main>
-        <section className="relative overflow-hidden px-6 py-20 md:px-10 lg:px-16">
-          <div className="absolute left-[-10%] top-10 h-72 w-72 rounded-full bg-amber-200/40 blur-3xl" />
-          <div className="absolute bottom-0 right-[-8%] h-80 w-80 rounded-full bg-stone-300/50 blur-3xl" />
-
-          <div className="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-            <div>
-              <p className="text-sm font-black uppercase tracking-[0.35em] text-stone-500">Contact</p>
-              <h1 className="mt-5 max-w-3xl text-5xl font-black leading-[0.95] tracking-[-0.06em] text-stone-950 md:text-7xl">
-                Let&apos;s talk about your next move.
-              </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-stone-700">
-                Use this form to reach {siteName}. Your request will be recorded and shared with the support team for follow-up.
-              </p>
-
-              <div className="mt-8 grid gap-4">
-                {contactHighlights.map((item) => (
-                  <div key={item.title} className="flex gap-4 rounded-3xl border border-stone-200 bg-white/60 p-5 shadow-sm">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-stone-950 text-white">
-                      <item.icon className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <h2 className="text-base font-black text-stone-950">{item.title}</h2>
-                      <p className="mt-1 text-sm leading-6 text-stone-600">{item.copy}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+      <main className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <section className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">Contact {SITE_CONFIG.name}</p>
+            <h1 className="mt-4 text-5xl font-semibold tracking-[-0.05em] text-foreground">Talk to our team about publishing, partnerships, and platform support.</h1>
+            <p className="mt-5 max-w-2xl text-sm leading-8 text-muted-foreground">
+              We review every request with context in mind. Share your goals and constraints, and we will reply with
+              practical next steps that fit your workflow.
+            </p>
+            <div className="mt-8 space-y-4">
+              {lanes.map((lane) => (
+                <div key={lane.title} className="rounded-[1.6rem] border border-border bg-card p-5 shadow-sm">
+                  <lane.icon className="h-5 w-5 text-foreground" />
+                  <h2 className="mt-3 text-xl font-semibold text-foreground">{lane.title}</h2>
+                  <p className="mt-2 text-sm leading-7 text-muted-foreground">{lane.body}</p>
+                </div>
+              ))}
             </div>
+            {contactEmails.length ? (
+              <div className="mt-8 rounded-[1.6rem] border border-border bg-card p-5 shadow-sm">
+                <h2 className="text-xl font-semibold text-foreground">Email the team</h2>
+                <p className="mt-2 text-sm leading-7 text-muted-foreground">
+                  For most requests, you can expect an initial response within 1-2 business days.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-3">
+                  {contactEmails.map((email) => (
+                    <a
+                      key={email}
+                      href={`mailto:${email}`}
+                      className="inline-flex min-h-11 items-center justify-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+                    >
+                      {email}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : null}
 
+            <div className="mt-8 rounded-[1.6rem] border border-border bg-card p-5 shadow-sm">
+              <h2 className="text-xl font-semibold text-foreground">How to get a faster response</h2>
+              <ul className="mt-3 space-y-2 text-sm leading-7 text-muted-foreground">
+                {responseGuidelines.map((item) => (
+                  <li key={item}>- {item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="rounded-[2rem] border border-border bg-card p-7 shadow-sm">
+            <h2 className="text-2xl font-semibold text-foreground">Send a message</h2>
+            <p className="mt-2 text-sm leading-7 text-muted-foreground">
+              Tell us what you are trying to achieve, what is blocking you, and what a successful outcome looks like.
+            </p>
             <ContactLeadForm />
           </div>
         </section>
       </main>
       <Footer />
     </div>
-  );
+  )
 }
